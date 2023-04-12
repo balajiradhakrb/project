@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Find all files that are being added
+for file in $(git diff --cached --name-only --diff-filter=A); do
+
+  # Check if the file is a text file
+  if ! [[ $(file -b --mime-type "$file") =~ text/ ]]; then
+    echo "Error: Only text files are allowed in this repository."
+    echo "File '$file' is not a text file."
+    exit 1
+  fi
+
+done
